@@ -1,1002 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Friend Or Trend — Sign In</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
-<style>
-/* ── Reset & Base ─────────────────────────────────── */
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --cream:#FDF8F3;
-  --blush:#F5E8DC;
-  --charcoal:#1E1612;
-  --charcoal-60:rgba(30,22,18,.6);
-  --charcoal-30:rgba(30,22,18,.3);
-  --charcoal-10:rgba(30,22,18,.08);
-  --terracotta:#B05C38;
-  --terracotta-light:#D4785A;
-  --gold:#C9A84C;
-  --gold-light:#DFC077;
-  --rose-gold:#C4826A;
-  --rose-gold-light:#E0A48E;
-  --white:#FFFFFF;
-  --white-60:rgba(255,255,255,.6);
-  --white-30:rgba(255,255,255,.3);
-  --white-10:rgba(255,255,255,.1);
-  --err:#C0392B;
-  --err-bg:rgba(192,57,43,.08);
-  --success:#27AE60;
-  --radius-sm:10px;
-  --radius-md:16px;
-  --radius-lg:24px;
-  --radius-xl:32px;
-  --shadow-warm:0 20px 60px rgba(176,92,56,.15),0 4px 16px rgba(30,22,18,.08);
-  --shadow-card:0 32px 80px rgba(30,22,18,.18),0 8px 24px rgba(30,22,18,.06);
-  --transition-smooth:cubic-bezier(.16,1,.3,1);
-}
-html{font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{
-  min-height:100vh;
-  font-family:'DM Sans',sans-serif;
-  background:var(--cream);
-  display:flex;
-  overflow:hidden;
-}
-
-/* ── Split Layout ─────────────────────────────────── */
-.split{
-  display:flex;
-  width:100%;
-  min-height:100vh;
-}
-
-/* ── Left Panel ───────────────────────────────────── */
-.left-panel{
-  flex:1;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  padding:3rem;
-}
-.left-panel .bg-image{
-  position:absolute;
-  inset:0;
-  background:url('bg4_1783942532877_1784027027894.jpg') center/cover no-repeat;
-  transform:scale(1.04);
-  transition:transform 12s ease;
-}
-.left-panel:hover .bg-image{transform:scale(1)}
-.left-panel .warm-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    160deg,
-    rgba(30,22,18,.35) 0%,
-    rgba(176,92,56,.45) 50%,
-    rgba(30,22,18,.80) 100%
-  );
-}
-.left-panel .ambient-glow{
-  position:absolute;
-  inset:0;
-  background:radial-gradient(ellipse 70% 60% at 30% 40%,rgba(201,168,76,.12) 0%,transparent 70%);
-  pointer-events:none;
-}
-
-/* Left Panel — Floating Orbs */
-.orb{
-  position:absolute;
-  border-radius:50%;
-  pointer-events:none;
-  animation:drift var(--dur,12s) ease-in-out infinite alternate;
-}
-.orb-1{width:320px;height:320px;top:-80px;left:-80px;background:radial-gradient(circle,rgba(201,168,76,.18),transparent 70%);--dur:14s}
-.orb-2{width:200px;height:200px;bottom:120px;right:-60px;background:radial-gradient(circle,rgba(176,92,56,.22),transparent 70%);--dur:9s;animation-delay:-3s}
-.orb-3{width:140px;height:140px;top:40%;left:30%;background:radial-gradient(circle,rgba(255,255,255,.07),transparent 70%);--dur:11s;animation-delay:-6s}
-@keyframes drift{
-  0%{transform:translate(0,0) scale(1)}
-  100%{transform:translate(20px,30px) scale(1.08)}
-}
-
-/* Left Panel — Content */
-.left-content{
-  position:relative;
-  z-index:2;
-  color:var(--white);
-}
-.left-logo{
-  height:38px;
-  filter:brightness(0) invert(1) drop-shadow(0 0 14px rgba(201,168,76,.55));
-  margin-bottom:auto;
-  position:absolute;
-  top:3rem;
-  left:3rem;
-}
-.left-tagline{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2rem,3.5vw,2.8rem);
-  font-weight:500;
-  font-style:italic;
-  line-height:1.25;
-  letter-spacing:-.02em;
-  color:var(--white);
-  text-shadow:0 2px 24px rgba(30,22,18,.4);
-  margin-bottom:.75rem;
-}
-.left-tagline em{
-  font-style:normal;
-  color:var(--gold-light);
-}
-.left-sub{
-  font-size:.85rem;
-  color:rgba(255,255,255,.55);
-  font-weight:300;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-}
-.left-line{
-  width:48px;
-  height:1.5px;
-  background:linear-gradient(90deg,var(--gold),transparent);
-  margin-bottom:1.25rem;
-}
-
-/* ── Right Panel ─────────────────────────────────── */
-.right-panel{
-  width:460px;
-  flex-shrink:0;
-  background:var(--white);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow-y:auto;
-  padding:2rem;
-  position:relative;
-  box-shadow:-24px 0 80px rgba(30,22,18,.12);
-}
-.form-shell{
-  width:100%;
-  max-width:380px;
-  padding:1rem 0;
-}
-
-/* ── Greeting ─────────────────────────────────────── */
-.greeting-wrap{
-  margin-bottom:2.5rem;
-}
-.greeting-time{
-  font-size:.72rem;
-  font-weight:500;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:.5rem;
-}
-.greeting-headline{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.75rem,3vw,2.25rem);
-  font-weight:600;
-  color:var(--charcoal);
-  line-height:1.2;
-  letter-spacing:-.02em;
-}
-.greeting-headline span{
-  display:block;
-  font-style:italic;
-  font-weight:400;
-  color:var(--terracotta);
-}
-
-/* ── Mode Toggle ──────────────────────────────────── */
-.mode-toggle{
-  display:flex;
-  gap:1.5rem;
-  margin-bottom:2.25rem;
-  border-bottom:1.5px solid var(--charcoal-10);
-  padding-bottom:.25rem;
-}
-.mode-btn{
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  font-size:.85rem;
-  font-weight:500;
-  color:var(--charcoal-30);
-  padding:.25rem 0;
-  position:relative;
-  transition:color .25s ease;
-  letter-spacing:.02em;
-}
-.mode-btn.active{color:var(--charcoal);font-weight:600}
-.mode-btn::after{
-  content:'';
-  position:absolute;
-  bottom:-1.75px;
-  left:0;
-  right:100%;
-  height:2px;
-  background:var(--terracotta);
-  transition:right .35s var(--transition-smooth);
-}
-.mode-btn.active::after{right:0}
-
-/* ── Error ────────────────────────────────────────── */
-.err-msg{
-  display:none;
-  background:var(--err-bg);
-  border:1px solid rgba(192,57,43,.15);
-  border-radius:var(--radius-sm);
-  padding:.625rem .875rem;
-  color:var(--err);
-  font-size:.78rem;
-  margin-bottom:1rem;
-  line-height:1.5;
-}
-.err-msg.show{display:block;animation:errShake .35s ease}
-@keyframes errShake{
-  0%,100%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  75%{transform:translateX(6px)}
-}
-
-/* ── Form Fields ──────────────────────────────────── */
-.field-group{
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
-  margin-bottom:1.5rem;
-}
-.field{position:relative}
-.field label{
-  display:block;
-  font-size:.72rem;
-  font-weight:600;
-  letter-spacing:.07em;
-  text-transform:uppercase;
-  color:var(--charcoal-60);
-  margin-bottom:.5rem;
-  transition:color .2s;
-}
-.field:focus-within label{color:var(--terracotta)}
-
-/* Pen-stroke underline container */
-.input-wrap{position:relative}
-.f-input{
-  width:100%;
-  padding:.875rem 1rem;
-  background:var(--blush);
-  border:1.5px solid transparent;
-  border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif;
-  font-size:.9rem;
-  color:var(--charcoal);
-  outline:none;
-  transition:background .2s ease,border-color .2s ease,box-shadow .2s ease;
-}
-.f-input::placeholder{color:rgba(30,22,18,.28);font-style:italic}
-.f-input:focus{
-  background:var(--white);
-  border-color:var(--terracotta-light);
-  box-shadow:0 0 0 4px rgba(176,92,56,.08);
-}
-/* Pen glow line */
-.pen-line{
-  position:absolute;
-  bottom:0;
-  left:1rem;
-  height:2px;
-  width:0;
-  background:linear-gradient(90deg,var(--terracotta),var(--gold));
-  border-radius:2px;
-  transition:width .45s var(--transition-smooth);
-  pointer-events:none;
-}
-.f-input:focus~.pen-line,
-.f-input:not(:placeholder-shown)~.pen-line{
-  width:calc(100% - 2rem);
-}
-
-/* Password field */
-.pw-field-wrap{position:relative}
-.pw-field-wrap .f-input{padding-right:3rem}
-.pw-toggle-btn{
-  position:absolute;
-  right:.875rem;
-  top:50%;
-  transform:translateY(-50%);
-  background:none;
-  border:none;
-  cursor:pointer;
-  padding:.25rem;
-  color:rgba(30,22,18,.35);
-  transition:color .2s;
-  display:flex;
-  align-items:center;
-}
-.pw-toggle-btn:hover{color:var(--terracotta)}
-
-/* Collapse transition for name field */
-.collapsible{
-  overflow:hidden;
-  transition:max-height .4s var(--transition-smooth),opacity .35s ease;
-}
-.collapsible.collapsed{max-height:0!important;opacity:0;pointer-events:none}
-
-/* ── Primary Button ───────────────────────────────── */
-.btn-primary{
-  width:100%;
-  padding:1rem 1.5rem;
-  background:linear-gradient(135deg,var(--terracotta) 0%,var(--terracotta-light) 50%,var(--rose-gold) 100%);
-  background-size:200% 200%;
-  background-position:left center;
-  border:none;
-  border-radius:var(--radius-md);
-  font-family:'DM Sans',sans-serif;
-  font-size:.9rem;
-  font-weight:600;
-  color:var(--white);
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-  transition:background-position .45s ease,transform .2s ease,box-shadow .2s ease;
-  box-shadow:0 4px 20px rgba(176,92,56,.3);
-  letter-spacing:.03em;
-}
-.btn-primary:hover{
-  background-position:right center;
-  transform:translateY(-2px);
-  box-shadow:0 8px 32px rgba(176,92,56,.4);
-}
-.btn-primary:active{transform:translateY(0);box-shadow:0 2px 12px rgba(176,92,56,.25)}
-.btn-primary:disabled{
-  opacity:.55;cursor:not-allowed;transform:none;
-  box-shadow:0 2px 8px rgba(176,92,56,.15);
-}
-/* Ripple */
-.btn-primary::before{
-  content:'';position:absolute;
-  width:200%;height:200%;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%) scale(0);
-  background:rgba(255,255,255,.12);
-  border-radius:50%;
-  transition:transform .5s ease,opacity .5s ease;
-  opacity:0;
-}
-.btn-primary:active::before{transform:translate(-50%,-50%) scale(1);opacity:1}
-
-/* Success checkmark state */
-.btn-primary.success{
-  background:linear-gradient(135deg,var(--success),#2ECC71)!important;
-  background-position:left center!important;
-  pointer-events:none;
-}
-.btn-primary .btn-text{
-  display:inline-flex;align-items:center;gap:.5rem;
-  transition:opacity .2s,transform .2s;
-}
-.btn-primary .btn-spinner{
-  display:none;
-  width:18px;height:18px;
-  border:2.5px solid rgba(255,255,255,.35);
-  border-top-color:#fff;
-  border-radius:50%;
-  animation:spin .7s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.btn-primary.loading .btn-text{display:none}
-.btn-primary.loading .btn-spinner{display:inline-block}
-
-/* ── Divider ──────────────────────────────────────── */
-.divider{
-  display:flex;align-items:center;gap:.875rem;
-  margin:1.5rem 0;
-  color:rgba(30,22,18,.25);
-  font-size:.72rem;
-  font-weight:500;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-}
-.divider::before,.divider::after{
-  content:'';flex:1;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--charcoal-10),transparent);
-}
-
-/* ── Magic Link ───────────────────────────────────── */
-.magic-link-btn{
-  width:100%;
-  padding:.875rem 1.25rem;
-  background:transparent;
-  border:1.5px solid var(--charcoal-10);
-  border-radius:var(--radius-md);
-  font-family:'DM Sans',sans-serif;
-  font-size:.85rem;
-  color:var(--charcoal-60);
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:.625rem;
-  transition:all .25s ease;
-  letter-spacing:.01em;
-  margin-bottom:.875rem;
-}
-.magic-link-btn:hover{
-  border-color:var(--gold);
-  color:var(--charcoal);
-  background:rgba(201,168,76,.05);
-  transform:translateY(-1px);
-  box-shadow:0 4px 16px rgba(201,168,76,.12);
-}
-.magic-link-btn svg{transition:transform .25s ease;flex-shrink:0}
-.magic-link-btn:hover svg{transform:rotate(15deg)}
-
-/* ── Social Buttons ───────────────────────────────── */
-.social-row{display:flex;gap:.75rem}
-.btn-social{
-  flex:1;
-  padding:.8125rem .75rem;
-  border:1.5px solid var(--charcoal-10);
-  border-radius:var(--radius-md);
-  background:transparent;
-  font-family:'DM Sans',sans-serif;
-  font-size:.82rem;
-  font-weight:500;
-  color:rgba(30,22,18,.55);
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:.5rem;
-  transition:all .25s ease;
-  letter-spacing:.01em;
-  text-decoration:none;
-}
-.btn-social:hover{
-  border-color:rgba(30,22,18,.2);
-  color:var(--charcoal);
-  background:var(--blush);
-  transform:translateY(-1px);
-  box-shadow:0 4px 16px rgba(30,22,18,.06);
-}
-.btn-social svg{flex-shrink:0}
-
-/* ── Footer link ──────────────────────────────────── */
-.form-footer{
-  margin-top:2rem;
-  text-align:center;
-  font-size:.78rem;
-  color:rgba(30,22,18,.4);
-}
-.form-footer a{
-  color:var(--terracotta);
-  text-decoration:none;
-  font-weight:500;
-  border-bottom:1px solid transparent;
-  transition:border-color .2s;
-}
-.form-footer a:hover{border-color:var(--terracotta)}
-
-/* ── Verify Card ──────────────────────────────────── */
-.verify-card{
-  display:none;
-  text-align:center;
-  animation:fadeInUp .55s var(--transition-smooth) both;
-}
-.verify-icon-wrap{
-  width:80px;height:80px;
-  background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(176,92,56,.1));
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 1.5rem;
-  animation:iconPop .6s var(--transition-smooth) .1s both;
-}
-@keyframes iconPop{
-  from{transform:scale(0);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-.verify-headline{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.75rem;
-  font-weight:600;
-  color:var(--charcoal);
-  margin-bottom:.625rem;
-  letter-spacing:-.02em;
-}
-.verify-sub{
-  font-size:.875rem;
-  color:rgba(30,22,18,.5);
-  line-height:1.6;
-  margin-bottom:.5rem;
-}
-.verify-email-badge{
-  display:inline-block;
-  padding:.375rem .875rem;
-  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(176,92,56,.08));
-  border:1px solid rgba(201,168,76,.2);
-  border-radius:100px;
-  font-size:.8rem;
-  font-weight:600;
-  color:var(--terracotta);
-  margin:1rem 0;
-}
-.verify-note{
-  font-size:.72rem;
-  color:rgba(30,22,18,.3);
-  line-height:1.5;
-}
-.btn-ghost{
-  margin-top:2rem;
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  font-size:.78rem;
-  color:rgba(30,22,18,.4);
-  text-decoration:underline;
-  transition:color .2s;
-}
-.btn-ghost:hover{color:var(--terracotta)}
-
-/* ── Form Transition ──────────────────────────────── */
-.form-card{animation:fadeInUp .5s var(--transition-smooth) both}
-@keyframes fadeInUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* ── Scroll Bar ───────────────────────────────────── */
-.right-panel::-webkit-scrollbar{width:4px}
-.right-panel::-webkit-scrollbar-track{background:transparent}
-.right-panel::-webkit-scrollbar-thumb{background:rgba(30,22,18,.12);border-radius:4px}
-
-/* ── Responsive ───────────────────────────────────── */
-@media(max-width:768px){
-  body{overflow-y:auto}
-  .split{flex-direction:column}
-  .left-panel{
-    flex:none;
-    min-height:35vh;
-    padding:2rem;
-  }
-  .left-logo{top:1.5rem;left:1.5rem;height:32px}
-  .left-tagline{font-size:1.6rem}
-  .right-panel{
-    width:100%;
-    box-shadow:none;
-    padding:2rem 1.5rem 3rem;
-    overflow-y:visible;
-  }
-  .form-shell{max-width:100%}
-}
-@media(max-width:480px){
-  .left-panel{min-height:40vh;padding:1.5rem}
-  .left-logo{top:1.25rem;left:1.25rem}
-  .right-panel{padding:1.75rem 1.25rem 2.5rem}
-  .social-row{flex-direction:column}
-  .greeting-headline{font-size:1.65rem}
-}
-
-/* ── FINB badge ───────────────────────────────────── */
-.finb-link{
-  display:flex;align-items:center;justify-content:center;gap:.5rem;
-  padding:.75rem 1.25rem;
-  margin-top:.875rem;
-  border-radius:var(--radius-md);
-  background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(196,130,106,.06));
-  border:1px solid rgba(201,168,76,.2);
-  text-decoration:none;
-  font-size:.8rem;
-  font-weight:500;
-  color:var(--gold);
-  letter-spacing:.03em;
-  transition:all .25s ease;
-}
-.finb-link:hover{
-  background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(196,130,106,.1));
-  border-color:rgba(201,168,76,.35);
-  transform:translateY(-1px);
-  box-shadow:0 4px 16px rgba(201,168,76,.12);
-}
-.finb-dot{
-  width:6px;height:6px;
-  border-radius:50%;
-  background:var(--gold);
-  animation:pulse 2s ease infinite;
-}
-@keyframes pulse{
-  0%,100%{opacity:1;transform:scale(1)}
-  50%{opacity:.5;transform:scale(.75)}
-}
-</style>
-</head>
-<body>
-
-<div class="split">
-
-  <!-- ═══ LEFT PANEL ═══════════════════════════════ -->
-  <div class="left-panel">
-    <div class="bg-image"></div>
-    <div class="warm-overlay"></div>
-    <div class="ambient-glow"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
-    <img class="left-logo" src="logo_1783942582038_1784027027894.png" alt="Friend Or Trend?"/>
-
-    <div class="left-content">
-      <div class="left-line"></div>
-      <h1 class="left-tagline">
-        Where your taste<br/>becomes your <em>signature.</em>
-      </h1>
-      <p class="left-sub">Curated style, personal discovery</p>
-    </div>
-  </div>
-
-  <!-- ═══ RIGHT PANEL ══════════════════════════════ -->
-  <div class="right-panel">
-    <div class="form-shell">
-
-      <!-- Main form card -->
-      <div class="form-card" id="formCard">
-
-        <!-- Greeting -->
-        <div class="greeting-wrap">
-          <p class="greeting-time" id="greetingTime">Good morning</p>
-          <h2 class="greeting-headline" id="greetingHeadline">
-            Welcome.<br/><span id="greetingSpan">It's wonderful to see you.</span>
-          </h2>
-        </div>
-
-        <!-- Mode tabs -->
-        <div class="mode-toggle" role="tablist">
-          <button class="mode-btn active" id="tabSignup" role="tab" onclick="setMode('signup')">Create account</button>
-          <button class="mode-btn" id="tabSignin" role="tab" onclick="setMode('signin')">Sign in</button>
-        </div>
-
-        <!-- Error -->
-        <div class="err-msg" id="errMsg" role="alert"></div>
-
-        <!-- Fields -->
-        <div class="field-group" id="fieldGroup">
-
-          <!-- Name (signup only) -->
-          <div class="collapsible" id="nameWrap" style="max-height:110px">
-            <div class="field">
-              <label for="nameInput">Your name</label>
-              <div class="input-wrap">
-                <input class="f-input" id="nameInput" type="text" placeholder="What shall we call you?" autocomplete="name"/>
-                <span class="pen-line"></span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Email -->
-          <div class="field">
-            <label for="emailInput">Email address</label>
-            <div class="input-wrap">
-              <input class="f-input" id="emailInput" type="email" placeholder="you@example.com" autocomplete="email"/>
-              <span class="pen-line"></span>
-            </div>
-          </div>
-
-          <!-- Password -->
-          <div class="field" id="pwField">
-            <label for="pwInput">Password</label>
-            <div class="input-wrap pw-field-wrap">
-              <input class="f-input" id="pwInput" type="password" placeholder="At least 8 characters" autocomplete="current-password" minlength="8"/>
-              <span class="pen-line"></span>
-              <button class="pw-toggle-btn" type="button" onclick="togglePw()" id="pwToggleBtn" aria-label="Toggle password">
-                <!-- Eye icon -->
-                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-              </button>
-            </div>
-          </div>
-
-        </div><!-- /field-group -->
-
-        <!-- CTA -->
-        <button class="btn-primary" id="submitBtn" type="button" onclick="handleSubmit()">
-          <span class="btn-text" id="btnText">Begin your journey</span>
-          <div class="btn-spinner" id="btnSpinner"></div>
-        </button>
-
-        <!-- Divider -->
-        <div class="divider">or continue with</div>
-
-        <!-- Magic Link -->
-        <button class="magic-link-btn" type="button" onclick="handleMagicLink()" id="magicBtn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          We'll send you a little key to get right in
-        </button>
-
-        <!-- Social -->
-        <div class="social-row">
-          <!-- Google -->
-          <button class="btn-social" type="button" id="googleBtn" onclick="handleGoogle()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Google
-          </button>
-          <!-- Apple -->
-          <button class="btn-social" type="button" onclick="handleApple()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 814 1000"><path fill="currentColor" d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 388.9 0 227.5 0 173.5c0-226.1 148.6-344.5 294.3-344.5 73.9 0 135.4 48.4 181.5 48.4 44.3 0 114.3-51.4 199.1-51.4zm-273.3-43.4c-16.2-62.2-56.5-110.5-105.3-110.5-1.3 0-2.6 0-3.9.1-5.8-28.5-22.1-53.4-44.7-71.5-20.5-16.4-45.2-25.4-70.7-25.6-59.4 0-119.2 47.8-151.5 126.1-21.1 51.8-33.6 108.4-33.6 150.5v3c21.9 4.1 44.2 6.2 66.6 6.2 102.6 0 194.5-47.2 343.1-78.3z"/></svg>
-            Apple
-          </button>
-        </div>
-
-        <!-- FINB link -->
-        <a class="finb-link" href="https://finbgold.netlify.app" target="_blank" rel="noopener">
-          <span class="finb-dot"></span>
-          Continue effortlessly with FINB Sign
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
-        </a>
-
-        <div class="form-footer">
-          By continuing you agree to our <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>
-        </div>
-
-      </div><!-- /formCard -->
-
-      <!-- ── Verify Card ────────────────────────────── -->
-      <div class="verify-card" id="verifyCard">
-        <div class="verify-icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <h3 class="verify-headline" id="verifyHeadline">Check your inbox</h3>
-        <p class="verify-sub" id="verifySubtext">
-          We've sent a verification link to confirm your account.
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create - Friend Or Trend?</title>
+    <link rel="icon" href="https://assets.friendortrend.dedyn.io/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- SIGNED OUT -->
+    <div class="wrap" id="signView">
+      <img class="logo" src="https://assets.friendortrend.dedyn.io/logo.png" alt="Friend Or Trend? logo" />
+      <h1>Friend Or Trend?</h1>
+      <p class="tagline">Find out who really knows you</p>
+      <div class="card">
+        <p style="margin-bottom: 22px; opacity: 0.9">
+          Build a quiz, share it with your friends, and discover your true friends from the trend followers.
         </p>
-        <div class="verify-email-badge" id="verifyEmailBadge"></div>
-        <p class="verify-note">
-          Once confirmed, you'll be signed in automatically.<br/>
-          Don't see it? Check your spam folder.
-        </p>
-        <button class="btn-ghost" type="button" onclick="resetForm()">Use a different account</button>
+        <button class="btn btn-primary btn-sign" id="signBtn">Sign</button>
       </div>
+    </div>
 
-    </div><!-- /form-shell -->
-  </div><!-- /right-panel -->
+    <!-- SIGNED IN: HOME -->
+    <div class="wrap hidden" id="homeView">
+      <img class="logo" src="https://assets.friendortrend.dedyn.io/logo.png" alt="Friend Or Trend? logo" />
+      <h1>Hey, <span id="userName">Friend</span></h1>
+      <p class="tagline">Pick a quiz style</p>
+      <div class="card">
+        <div class="user-chip" id="userChip"></div>
+        <div class="options">
+          <div class="option" data-type="general">
+            <div class="emoji">?</div>
+            <div>
+              <h3>General Quiz</h3>
+              <p>Answer fun ready-made questions about your likings. Friends must match your answers.</p>
+            </div>
+          </div>
+          <div class="option" data-type="custom">
+            <div class="emoji">+</div>
+            <div>
+              <h3>Custom Quiz</h3>
+              <p>Write your own questions and options, and mark the right answers.</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-ghost" id="signOutBtn" style="margin-top: 20px; width: 100%">Sign out</button>
+      </div>
+    </div>
 
-</div><!-- /split -->
+    <!-- COUNT SELECT -->
+    <div class="wrap hidden" id="countView">
+      <img class="logo logo-sm" src="https://assets.friendortrend.dedyn.io/logo.png" alt="logo" />
+      <h1 id="countTitle">General Quiz</h1>
+      <p class="tagline">How many questions?</p>
+      <div class="card">
+        <div class="counts">
+          <div class="count-pill active" data-count="10">10 Questions</div>
+          <div class="count-pill" data-count="20">20 Questions</div>
+          <div class="count-pill locked" data-count="more">30+ (FINB Premium)</div>
+        </div>
+        <p class="note">Free plan supports up to 20 questions. Unlock more with a FINB premium plan.</p>
+        <div class="builder-nav">
+          <button class="btn btn-ghost" id="countBack">Back</button>
+          <button class="btn btn-primary" id="countStart">Start Building</button>
+        </div>
+      </div>
+    </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  sendEmailVerification,
-  sendSignInLinkToEmail,
-  GoogleAuthProvider,
-  OAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    <!-- BUILDER -->
+    <div class="wrap hidden" id="builderView">
+      <div class="card">
+        <div class="progress"><span id="progressBar"></span></div>
+        <div class="q-count" id="qCount">Question 1</div>
+        <div id="builderBody"></div>
+        <div class="builder-nav">
+          <button class="btn btn-ghost" id="prevBtn">Back</button>
+          <button class="btn btn-primary" id="nextBtn">Next</button>
+        </div>
+      </div>
+    </div>
 
-/* ── Firebase ─────────────────────────────────────── */
-const app = initializeApp({
-  apiKey:"AIzaSyDPK-NPgHs9CK4BnCgJNVvK9E7novNOI2w",
-  authDomain:"friendortrend2.firebaseapp.com",
-  projectId:"friendortrend2",
-  storageBucket:"friendortrend2.firebasestorage.app",
-  messagingSenderId:"405203029307",
-  appId:"1:405203029307:web:497af09aa05cca3b00bb1e"
-});
-const auth = getAuth(app);
+    <!-- SHARE -->
+    <div class="wrap hidden" id="shareView">
+      <div class="card">
+        <div class="big-emoji">&#10084;</div>
+        <h1 style="font-size: 1.8rem">Quiz is ready!</h1>
+        <p style="opacity: 0.9; margin-bottom: 4px">Share this link with your friends:</p>
+        <div class="share-box">
+          <input id="shareLink" readonly />
+          <button class="btn btn-primary" id="copyBtn">Copy</button>
+        </div>
+        <p class="note">Quiz code: <b id="quizCodeText"></b></p>
+        <button class="btn btn-ghost" id="newQuizBtn" style="width: 100%; margin-top: 18px">Create another quiz</button>
+      </div>
+    </div>
 
-/* Redirect if already signed in */
-onAuthStateChanged(auth, u => { if (u) window.location.href = 'index.html'; });
+    <div class="toast" id="toast"></div>
 
-/* ── Greeting ─────────────────────────────────────── */
-(function setGreeting() {
-  const h = new Date().getHours();
-  let period, sub;
-  if (h < 12)      { period = "Good morning"; sub = "Lovely to have you here."; }
-  else if (h < 17) { period = "Good afternoon"; sub = "Ready to explore your style?"; }
-  else if (h < 21) { period = "Good evening"; sub = "It's wonderful to see you again."; }
-  else             { period = "Good night"; sub = "Still curating your taste, we see."; }
-  document.getElementById('greetingTime').textContent = period;
-  document.getElementById('greetingSpan').textContent = sub;
-})();
-
-/* ── Mode ─────────────────────────────────────────── */
-let currentMode = 'signup';
-const btnLabels = { signup: "Begin your journey", signin: "Let's get you in" };
-
-window.setMode = (m) => {
-  if (m === currentMode) return;
-  currentMode = m;
-
-  const tabUp = document.getElementById('tabSignup');
-  const tabIn = document.getElementById('tabSignin');
-  tabUp.className = 'mode-btn' + (m === 'signup' ? ' active' : '');
-  tabIn.className = 'mode-btn' + (m === 'signin' ? ' active' : '');
-
-  const nameWrap = document.getElementById('nameWrap');
-  if (m === 'signup') {
-    nameWrap.style.maxHeight = '110px';
-    nameWrap.classList.remove('collapsed');
-  } else {
-    nameWrap.style.maxHeight = nameWrap.scrollHeight + 'px';
-    requestAnimationFrame(() => nameWrap.classList.add('collapsed'));
-  }
-
-  document.getElementById('btnText').textContent = btnLabels[m];
-  hideErr();
-
-  // Animate form
-  const fg = document.getElementById('fieldGroup');
-  fg.style.opacity = '0';
-  fg.style.transform = 'translateY(8px)';
-  setTimeout(() => {
-    fg.style.transition = 'opacity .35s ease, transform .35s ease';
-    fg.style.opacity = '1';
-    fg.style.transform = 'translateY(0)';
-  }, 50);
-};
-
-/* ── Password toggle ──────────────────────────────── */
-window.togglePw = () => {
-  const inp = document.getElementById('pwInput');
-  const isPassword = inp.type === 'password';
-  inp.type = isPassword ? 'text' : 'password';
-  document.getElementById('eyeIcon').style.display    = isPassword ? 'none' : 'inline';
-  document.getElementById('eyeOffIcon').style.display = isPassword ? 'inline' : 'none';
-};
-
-/* ── Error helpers ────────────────────────────────── */
-const showErr = msg => {
-  const el = document.getElementById('errMsg');
-  el.textContent = msg.replace('Firebase: ', '').replace(/ \(auth\/.*?\)\.?/g, '');
-  el.className = 'err-msg show';
-};
-const hideErr = () => {
-  document.getElementById('errMsg').className = 'err-msg';
-};
-
-/* ── Loading state ────────────────────────────────── */
-const setLoading = (on, btn = document.getElementById('submitBtn')) => {
-  if (on) { btn.disabled = true; btn.classList.add('loading'); }
-  else    { btn.disabled = false; btn.classList.remove('loading'); }
-};
-
-const setSuccess = (btn = document.getElementById('submitBtn')) => {
-  btn.classList.add('success');
-  btn.classList.remove('loading');
-  const icon = document.createElement('span');
-  icon.style.cssText = 'display:inline-flex;align-items:center;gap:.4rem';
-  icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
-  btn.innerHTML = '';
-  btn.appendChild(icon);
-};
-
-/* ── Show verify card ─────────────────────────────── */
-const showVerify = (email, isLink = false) => {
-  document.getElementById('formCard').style.display = 'none';
-  const vc = document.getElementById('verifyCard');
-  vc.style.display = 'block';
-  document.getElementById('verifyEmailBadge').textContent = email;
-  if (isLink) {
-    document.getElementById('verifyHeadline').textContent = 'Your key is on its way';
-    document.getElementById('verifySubtext').textContent =
-      'We\'ve sent a magic link to your inbox. Click it to sign in instantly — no password needed.';
-  } else {
-    document.getElementById('verifyHeadline').textContent = 'Check your inbox';
-    document.getElementById('verifySubtext').textContent =
-      'We\'ve sent a confirmation link. Please verify your email to complete sign-up.';
-  }
-};
-
-/* ── Submit ───────────────────────────────────────── */
-window.handleSubmit = async () => {
-  hideErr();
-  const email = document.getElementById('emailInput').value.trim();
-  const pw    = document.getElementById('pwInput').value;
-  const name  = document.getElementById('nameInput').value.trim();
-
-  if (!email) { showErr('Please enter your email address.'); return; }
-  if (!pw)    { showErr('Please enter a password.'); return; }
-  if (pw.length < 8) { showErr('Password must be at least 8 characters.'); return; }
-
-  const btn = document.getElementById('submitBtn');
-  setLoading(true, btn);
-
-  try {
-    if (currentMode === 'signup') {
-      const cred = await createUserWithEmailAndPassword(auth, email, pw);
-      await updateProfile(cred.user, { displayName: name || 'Friend' });
-      await sendEmailVerification(cred.user);
-      setSuccess(btn);
-      setTimeout(() => showVerify(email, false), 600);
-    } else {
-      await signInWithEmailAndPassword(auth, email, pw);
-      setSuccess(btn);
-      setTimeout(() => { window.location.href = 'index.html'; }, 600);
-    }
-  } catch (e) {
-    showErr(e.message || 'Something went wrong. Please try again.');
-    setLoading(false, btn);
-    document.getElementById('btnText').textContent = btnLabels[currentMode];
-  }
-};
-
-/* ── Magic Link ───────────────────────────────────── */
-window.handleMagicLink = async () => {
-  const email = document.getElementById('emailInput').value.trim();
-  if (!email) { showErr('Enter your email address first — we\'ll send the key there.'); return; }
-
-  const btn = document.getElementById('magicBtn');
-  btn.disabled = true;
-  btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="animation:spin .7s linear infinite"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Sending your key…`;
-
-  const actionCodeSettings = {
-    url: window.location.origin + '/index.html',
-    handleCodeInApp: true,
-  };
-
-  try {
-    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-    window.localStorage.setItem('emailForSignIn', email);
-    showVerify(email, true);
-  } catch (e) {
-    showErr('Couldn\'t send the magic link. Please check your email and try again.');
-    btn.disabled = false;
-    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> We'll send you a little key to get right in`;
-  }
-};
-
-/* ── Google ───────────────────────────────────────── */
-window.handleGoogle = async () => {
-  hideErr();
-  const btn = document.getElementById('googleBtn');
-  btn.disabled = true;
-  const orig = btn.innerHTML;
-  btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="animation:spin .7s linear infinite"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Opening…`;
-  try {
-    await signInWithPopup(auth, new GoogleAuthProvider());
-    window.location.href = 'index.html';
-  } catch (e) {
-    showErr('Google sign-in was cancelled or failed. Please try again.');
-    btn.disabled = false;
-    btn.innerHTML = orig;
-  }
-};
-
-/* ── Apple ────────────────────────────────────────── */
-window.handleApple = async () => {
-  hideErr();
-  try {
-    const provider = new OAuthProvider('apple.com');
-    provider.addScope('email');
-    provider.addScope('name');
-    await signInWithPopup(auth, provider);
-    window.location.href = 'index.html';
-  } catch (e) {
-    if (e.code !== 'auth/popup-closed-by-user') {
-      showErr('Apple sign-in is not configured yet. Please use another method.');
-    }
-  }
-};
-
-/* ── Reset ────────────────────────────────────────── */
-window.resetForm = () => {
-  document.getElementById('formCard').style.display = 'block';
-  document.getElementById('verifyCard').style.display = 'none';
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = false;
-  btn.className = 'btn-primary';
-  btn.innerHTML = `<span class="btn-text" id="btnText">${btnLabels[currentMode]}</span><div class="btn-spinner" id="btnSpinner"></div>`;
-};
-
-/* ── Enter key ────────────────────────────────────── */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter') window.handleSubmit();
-});
-</script>
-</body>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
