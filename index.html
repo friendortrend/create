@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -20,10 +20,13 @@
       <h1>Friend Or Trend?</h1>
       <p class="tagline">Find out who really knows you</p>
       <div class="card">
-        <p style="margin-bottom: 22px; opacity: 0.9">
-          Build a quiz, share it with your friends, and discover your true friends from the trend followers.
+        <p class="lead">
+          Build a beautiful quiz, share it with your friends, and discover your true friends from the trend followers.
         </p>
-        <button class="btn btn-primary btn-sign" id="signBtn">Sign</button>
+        <button class="btn btn-primary btn-sign" id="signBtn">
+          <span>Sign in to begin</span>
+        </button>
+        <p class="fineprint">Secured by Fake International Bank</p>
       </div>
     </div>
 
@@ -31,41 +34,61 @@
     <div class="wrap hidden" id="homeView">
       <img class="logo" src="https://assets.friendortrend.dedyn.io/logo.png" alt="Friend Or Trend? logo" />
       <h1>Hey, <span id="userName">Friend</span></h1>
-      <p class="tagline">Pick a quiz style</p>
+      <p class="tagline">Choose your experience</p>
       <div class="card">
         <div class="user-chip" id="userChip"></div>
         <div class="options">
-          <div class="option" data-type="general">
-            <div class="emoji">?</div>
-            <div>
-              <h3>General Quiz</h3>
-              <p>Answer fun ready-made questions about your likings. Friends must match your answers.</p>
-            </div>
-          </div>
-          <div class="option" data-type="custom">
-            <div class="emoji">+</div>
-            <div>
-              <h3>Custom Quiz</h3>
-              <p>Write your own questions and options, and mark the right answers.</p>
-            </div>
-          </div>
+          <button class="option option-featured" data-type="general">
+            <span class="ribbon">Most loved</span>
+            <span class="opt-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.35-10-9.5C.5 7.5 3 4 6.5 4 9 4 12 6.5 12 6.5S15 4 17.5 4C21 4 23.5 7.5 22 11.5 19.5 16.65 12 21 12 21z"/></svg>
+            </span>
+            <span class="opt-body">
+              <span class="opt-head">
+                <h3>General Quiz</h3>
+                <span class="opt-badge">Instant</span>
+              </span>
+              <p>Answer fun, ready-made questions about you. Your friends must match your answers to prove they know you.</p>
+            </span>
+            <span class="opt-arrow" aria-hidden="true">&rarr;</span>
+          </button>
+
+          <button class="option" data-type="custom">
+            <span class="opt-icon opt-icon-alt">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </span>
+            <span class="opt-body">
+              <span class="opt-head">
+                <h3>Custom Quiz</h3>
+                <span class="opt-badge opt-badge-soft">Your words</span>
+              </span>
+              <p>Write your very own questions and options, then mark the right answers. Fully personal.</p>
+            </span>
+            <span class="opt-arrow" aria-hidden="true">&rarr;</span>
+          </button>
         </div>
         <button class="btn btn-ghost" id="signOutBtn" style="margin-top: 20px; width: 100%">Sign out</button>
       </div>
     </div>
 
-    <!-- COUNT SELECT -->
+    <!-- COUNT SELECT (custom quiz only) -->
     <div class="wrap hidden" id="countView">
       <img class="logo logo-sm" src="https://assets.friendortrend.dedyn.io/logo.png" alt="logo" />
-      <h1 id="countTitle">General Quiz</h1>
+      <h1 id="countTitle">Custom Quiz</h1>
       <p class="tagline">How many questions?</p>
       <div class="card">
         <div class="counts">
-          <div class="count-pill active" data-count="10">10 Questions</div>
-          <div class="count-pill" data-count="20">20 Questions</div>
-          <div class="count-pill locked" data-count="more">30+ (FINB Premium)</div>
+          <button class="count-pill active" data-count="10">
+            <b>10</b><span>Questions</span>
+          </button>
+          <button class="count-pill" data-count="20">
+            <b>20</b><span>Questions</span>
+          </button>
+          <button class="count-pill locked" data-count="more">
+            <b>30+</b><span>FINB Premium</span>
+          </button>
         </div>
-        <p class="note">Free plan supports up to 20 questions. Unlock more with a FINB premium plan.</p>
+        <p class="note">Free plan supports up to 20 questions. Unlock hundreds more with a Fake International Bank premium plan.</p>
         <div class="builder-nav">
           <button class="btn btn-ghost" id="countBack">Back</button>
           <button class="btn btn-primary" id="countStart">Start Building</button>
@@ -73,7 +96,21 @@
       </div>
     </div>
 
-    <!-- BUILDER -->
+    <!-- GENERAL QUIZ (instant, auto-advancing) -->
+    <div class="wrap hidden" id="generalView">
+      <div class="card">
+        <div class="progress"><span id="gProgress"></span></div>
+        <div class="q-count" id="gCount">Question 1</div>
+        <div class="q-text slide" id="gqText"></div>
+        <div class="answers slide" id="gAnswers"></div>
+        <button class="btn btn-skip" id="gSkip">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l10 8-10 8V4z"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+          <span>Skip &amp; swap this question</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- BUILDER (custom quiz) -->
     <div class="wrap hidden" id="builderView">
       <div class="card">
         <div class="progress"><span id="progressBar"></span></div>
@@ -90,7 +127,7 @@
     <div class="wrap hidden" id="shareView">
       <div class="card">
         <div class="big-emoji">&#10084;</div>
-        <h1 style="font-size: 1.8rem">Quiz is ready!</h1>
+        <h1 style="font-size: 1.8rem">Your quiz is ready!</h1>
         <p style="opacity: 0.9; margin-bottom: 4px">Share this link with your friends:</p>
         <div class="share-box">
           <input id="shareLink" readonly />
@@ -98,6 +135,17 @@
         </div>
         <p class="note">Quiz code: <b id="quizCodeText"></b></p>
         <button class="btn btn-ghost" id="newQuizBtn" style="width: 100%; margin-top: 18px">Create another quiz</button>
+      </div>
+    </div>
+
+    <!-- MILESTONE MODAL -->
+    <div class="modal-overlay hidden" id="milestone">
+      <div class="modal">
+        <div class="modal-glow"></div>
+        <div class="big-emoji" id="msEmoji">&#10024;</div>
+        <h2 id="msTitle">More questions?</h2>
+        <p id="msText"></p>
+        <div class="ms-actions" id="msActions"></div>
       </div>
     </div>
 

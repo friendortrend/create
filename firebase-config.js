@@ -1,6 +1,4 @@
 // Friend Or Trend? - Firebase configuration (shared across all sites)
-// IMPORTANT: replace "YOUR_FIREBASE_API_KEY" with the real Web API key
-// from Firebase Console > Project Settings > General > Web API Key.
 const firebaseConfig = {
   apiKey: "AIzaSyDPK-NPgHs9CK4BnCgJNVvK9E7novNOI2w",
   authDomain: "friendortrend2.firebaseapp.com",
